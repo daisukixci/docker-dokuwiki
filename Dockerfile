@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.7
 
 # Update & install packages & cleanup afterwards
 RUN apk update && apk upgrade && apk add \
