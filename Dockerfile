@@ -24,6 +24,8 @@ RUN apk update && apk upgrade && apk add \
     php5-gettext \
     php5-ldap \
     php5-ctype \
+    php5-openssl \
+    php5-zlib \
     php5-dom
 
 # Download & check & deploy dokuwiki & cleanup
