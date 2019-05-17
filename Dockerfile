@@ -1,5 +1,8 @@
 FROM alpine:3.7
 
+ENV DOKUWIKI_VERSION="stable"
+ENV ARCHIVE_URL="https://download.dokuwiki.org/src/dokuwiki/dokuwiki-${DOKUWIKI_VERSION}.tgz"
+
 # Update & install packages & cleanup afterwards
 RUN apk update && apk upgrade && apk add \
     lighttpd \
@@ -24,12 +27,14 @@ RUN apk update && apk upgrade && apk add \
     php5-gettext \
     php5-ldap \
     php5-ctype \
+    php5-openssl \
+    php5-zlib \
     php5-dom
 
 # Download & check & deploy dokuwiki & cleanup
-RUN wget -q -O /dokuwiki.tgz "https://download.dokuwiki.org/src/dokuwiki/dokuwiki-stable.tgz" \
+RUN wget -q -O /dokuwiki.tgz ${ARCHIVE_URL}\
     && mkdir -p /var/www/localhost/htdocs/dokuwiki \
-    && tar -zxf dokuwiki.tgz -C /var/www/localhost/htdocs/dokuwiki --strip-components 1
+    && tar -zxf /dokuwiki.tgz -C /var/www/localhost/htdocs/dokuwiki --strip-components 1
 
 # Set up ownership
 RUN chown -R lighttpd:lighttpd /var/www/localhost/htdocs/dokuwiki
@@ -41,9 +46,13 @@ RUN chown -R lighttpd:lighttpd /etc/lighttpd/
 RUN mkdir /run/lighttpd
 RUN chown -R lighttpd. /run/lighttpd
 
+# Add entrypoint
+COPY entrypoint.sh /
+
 EXPOSE 80
 VOLUME ["/var/www/localhost/htdocs/dokuwiki/conf", \
         "/var/www/localhost/htdocs/dokuwiki/data", \
         "/var/www/localhost/htdocs/dokuwiki/lib/plugins"]
 
-ENTRYPOINT ["/usr/sbin/lighttpd", "-D", "-f", "/etc/lighttpd/lighttpd.conf"]
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["run"]
