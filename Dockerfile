@@ -32,7 +32,7 @@ RUN apk update && apk upgrade && apk add \
     php5-dom
 
 # Download & check & deploy dokuwiki & cleanup
-RUN wget -q -O /dokuwiki.tgz ${ARCHIVE_URL}\
+RUN wget -q -O /dokuwiki.tgz ${ARCHIVE_URL} \
     && mkdir -p /var/www/localhost/htdocs/dokuwiki \
     && tar -zxf /dokuwiki.tgz -C /var/www/localhost/htdocs/dokuwiki --strip-components 1
 
@@ -52,6 +52,7 @@ COPY entrypoint.sh /
 EXPOSE 80
 VOLUME ["/var/www/localhost/htdocs/dokuwiki/conf", \
         "/var/www/localhost/htdocs/dokuwiki/data", \
+        "/var/www/localhost/htdocs/dokuwiki/lib/tpl", \
         "/var/www/localhost/htdocs/dokuwiki/lib/plugins"]
 
 ENTRYPOINT ["/entrypoint.sh"]
