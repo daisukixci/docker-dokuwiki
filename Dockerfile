@@ -55,5 +55,7 @@ VOLUME ["/var/www/localhost/htdocs/dokuwiki/conf", \
         "/var/www/localhost/htdocs/dokuwiki/lib/tpl", \
         "/var/www/localhost/htdocs/dokuwiki/lib/plugins"]
 
+HEALTHCHECK CMD curl --fail http://localhost || exit 1
+
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["run"]
