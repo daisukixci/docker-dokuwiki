@@ -36,7 +36,7 @@ test_already_existing_instance "$CONF_TEST" || deploy_part "conf"
 test_already_existing_instance "$PLUGINS_TEST" || deploy_part "lib/plugins"
 test_already_existing_instance "$LIB_TEST" || deploy_part "lib/tpl"
 
-if [ "$1" = "run" ]; then
+if [ "$1" == "run" ]; then
     exec /usr/sbin/lighttpd -D -f /etc/lighttpd/lighttpd.conf
 else
     exec "$@"
