@@ -29,7 +29,8 @@ RUN apk update && apk upgrade && apk add \
     php5-ctype \
     php5-openssl \
     php5-zlib \
-    php5-dom
+    php5-dom \
+    git
 
 # Download & check & deploy dokuwiki & cleanup
 RUN wget -q -O /dokuwiki.tgz ${ARCHIVE_URL} \
