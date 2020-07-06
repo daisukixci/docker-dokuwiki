@@ -31,6 +31,8 @@ deploy_part() {
     chown -R lighttpd:lighttpd /var/www/localhost/htdocs/dokuwiki
 }
 
+echo "Actual version $(cat /var/www/localhost/htdocs/dokuwiki/VERSION)"
+
 test_already_existing_instance "$DATA_TEST" || deploy_part "data"
 test_already_existing_instance "$CONF_TEST" || deploy_part "conf"
 test_already_existing_instance "$PLUGINS_TEST" || deploy_part "lib/plugins"
