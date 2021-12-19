@@ -1,4 +1,4 @@
-FROM alpine:3.7
+FROM alpine:3.15
 
 ENV DOKUWIKI_VERSION="stable"
 ENV ARCHIVE_URL="https://download.dokuwiki.org/src/dokuwiki/dokuwiki-${DOKUWIKI_VERSION}.tgz"
@@ -6,30 +6,28 @@ ENV ARCHIVE_URL="https://download.dokuwiki.org/src/dokuwiki/dokuwiki-${DOKUWIKI_
 # Update & install packages & cleanup afterwards
 RUN apk update && apk upgrade && apk add \
     lighttpd \
-    php5-common \
-    php5-iconv \
-    php5-json \
-    php5-gd \
-    php5-curl \
-    php5-xml \
-    php5-pgsql \
-    php5-mysql \
-    php5-imap \
-    php5-cgi \
+    php7-common \
+    php7-session \
+    php7-iconv \
+    php7-json \
+    php7-gd \
+    php7-curl \
+    php7-xml \
+    php7-mysqli \
+    php7-imap \
+    php7-cgi \
     fcgi \
-    php5-pdo \
-    php5-pdo_pgsql \
-    php5-pdo_mysql \
-    php5-soap \
-    php5-xmlrpc \
-    php5-posix \
-    php5-mcrypt \
-    php5-gettext \
-    php5-ldap \
-    php5-ctype \
-    php5-openssl \
-    php5-zlib \
-    php5-dom \
+    php7-pdo \
+    php7-pdo_mysql \
+    php7-soap \
+    php7-xmlrpc \
+    php7-posix \
+    php7-mcrypt \
+    php7-gettext \
+    php7-ldap \
+    php7-ctype \
+    php7-dom \
+    php7-simplexml \
     git
 
 # Download & check & deploy dokuwiki & cleanup
