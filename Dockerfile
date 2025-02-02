@@ -1,4 +1,4 @@
-FROM alpine:3.18
+FROM alpine:3.21
 
 ENV DOKUWIKI_VERSION="stable"
 ENV ARCHIVE_URL="https://download.dokuwiki.org/src/dokuwiki/dokuwiki-${DOKUWIKI_VERSION}.tgz"
@@ -41,7 +41,7 @@ ADD etc/lighttpd/lighttpd.conf /etc/lighttpd/lighttpd.conf
 ADD etc/lighttpd/mod_fastcgi.conf /etc/lighttpd/mod_fastcgi.conf
 RUN chown -R lighttpd:lighttpd /etc/lighttpd/
 RUN mkdir /run/lighttpd
-RUN chown -R lighttpd. /run/lighttpd
+RUN chown -R lighttpd: /run/lighttpd
 
 # Add entrypoint
 COPY entrypoint.sh /
@@ -53,5 +53,5 @@ VOLUME ["/var/www/localhost/htdocs/dokuwiki/conf", \
     "/var/www/localhost/htdocs/dokuwiki/lib/plugins"]
 
 ENTRYPOINT ["/entrypoint.sh"]
-HEALTHCHECK CMD wget -q http://localhost/doku.php -O /dev/null || exit 1
+HEALTHCHECK CMD wget -q http://127.0.0.1/doku.php -O /dev/null || exit 1
 CMD ["run"]
